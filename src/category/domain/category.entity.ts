@@ -1,6 +1,8 @@
-import { EntityValidationError } from "../../shared/domain/validators/validation-error";
+import { Entity } from "../../shared/domain/entity";
+import { EntityValidationError } from "../../shared/domain/validators/validation.error";
 import { UUID } from "../../shared/domain/value-objects/uuid.vo";
 import { CategoryValidatorFactory } from "./category.validator";
+import { ValueObject } from "../../shared/domain/value-object";
 
 export type CategoryConstructorProps = {
   category_id?: UUID;
@@ -16,7 +18,7 @@ export type CategoryCreateCommand = {
   is_active?: boolean;
 };
 
-export class Category {
+export class Category extends Entity {
   category_id: UUID;
   name: string;
   description: string | null;
@@ -24,11 +26,16 @@ export class Category {
   created_at: Date;
 
   constructor(props: CategoryConstructorProps) {
+    super();
     this.category_id = props.category_id ?? new UUID();
     this.name = props.name;
     this.description = props.description ?? null;
     this.is_active = props.is_active ?? true;
     this.created_at = props.created_at ?? new Date();
+  }
+
+  get entity_id(): ValueObject {
+    return this.category_id;
   }
 
   // fatory method
@@ -60,7 +67,7 @@ export class Category {
     const validator = CategoryValidatorFactory.create();
     const isValid = validator.validate(entity);
 
-    if(!isValid) {
+    if (!isValid) {
       throw new EntityValidationError(validator.errors);
     }
   }
