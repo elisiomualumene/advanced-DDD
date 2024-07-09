@@ -1,10 +1,25 @@
 //storage -  armazenamento de dados
 
-import { IRepository } from "@shared/domain/repository/repository-interface";
+import { ISearchableRepository } from "../../shared/domain/repository/repository-interface";
 import { Category } from "./category.entity";
-import { UUID } from "@shared/domain/value-objects/uuid.vo";
+import { UUID } from "../../shared/domain/value-objects/uuid.vo";
+import { SearchParams } from "../../shared/domain/repository/search-params";
+import { SearchResult } from "../../shared/domain/repository/search-result";
 
-export interface ICategoryRepository extends IRepository<Category, UUID> {}
+export type CategoryFilter = string;
+
+export class CategorySearchParams extends SearchParams<CategoryFilter> {}
+
+export class CategorySearchResult extends SearchResult<Category> {}
+
+export interface ICategoryRepository
+  extends ISearchableRepository<
+    Category,
+    UUID,
+    CategoryFilter,
+    CategorySearchParams,
+    CategorySearchResult
+  > {}
 
 //memoria
 // sequelize
