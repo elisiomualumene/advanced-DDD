@@ -7,6 +7,7 @@ const config: Config = {
   testEnvironment: 'node',
   coverageProvider: 'v8',
   testRegex: '.e2e-spec.ts$',
+  setupFilesAfterEnv: ['./jest-setup.ts'],
   transform: {
     '^.+\\.(t|j)s$': '@swc/jest',
   },

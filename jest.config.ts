@@ -201,9 +201,28 @@ const config: Config = {
   },
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '.interface.ts',
+    '-interface.ts',
+    '.interface.ts',
+    'shared/testing',
+    'shared-modules/testing',
+    '-fixtures.ts',
+    '.input.ts',
+    '.d.ts',
+  ],
+  coverageThreshold: {
+    global: {
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80,
+    },
+  },
   testEnvironment: 'node',
   setupFilesAfterEnv: ['./core/shared/infra/testing/expect-helpers.ts'],
-  testRegex: '.*\\..*spec\\.ts$'
+  testRegex: '.*\\..*spec\\.ts$',
 };
 
 export default config;
