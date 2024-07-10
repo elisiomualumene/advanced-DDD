@@ -14,11 +14,11 @@ describe('CategoriesController', () => {
     }).compile();
 
     controller = module.get<CategoriesController>(CategoriesController);
-   // console.log(module.get(ConfigService).get('DB_HOST'));
+    // console.log(module.get(ConfigService).get('DB_HOST'));
   });
 
   it('should be defined', () => {
-   // console.log(controller);
+    // console.log(controller);
     expect(controller).toBeDefined();
   });
 });
