@@ -1,0 +1,14 @@
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+    "name": null,
+    "description": "Description 1"
+}
+
+###
+GET http://localhost:3000/categories
+
+###
+// 806053a2-2b7d-4620-95d5-20bca4cb6064 - valid
+GET http://localhost:3000/categories/806053a2-2b7d-4620-95d5-20bca4cb6065
