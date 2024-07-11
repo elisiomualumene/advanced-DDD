@@ -1,5 +1,5 @@
 import { Chance } from "chance";
-import { Category } from "./category.entity";
+import { Category } from "./category.aggregate";
 import { UUID } from "../../shared/domain/value-objects/uuid.vo";
 
 type PropOrFactory<T> = T | ((index: number) => T);

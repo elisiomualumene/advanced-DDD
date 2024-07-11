@@ -1,8 +1,7 @@
-import { IUseCase } from '@core/shared/application/use-cases.interface';
+import { IUseCase } from '../../../../shared/application/use-cases.interface';
 import { NotFoundError } from '../../../../shared/domain/errors/not-found.error';
 import { EntityValidationError } from '../../../../shared/domain/validators/validation.error';
-import { UUID } from '../../../../shared/domain/value-objects/uuid.vo';
-import { Category } from '../../../domain/category.entity';
+import { Category, CategoryId } from '../../../domain/category.aggregate';
 import { ICategoryRepository } from '../../../domain/category.repository';
 import {
   CategoryOutput,
@@ -16,8 +15,8 @@ export class UpdateCategoryUseCase
   constructor(private categoryRepo: ICategoryRepository) {}
 
   async execute(input: UpdateCategoryInput): Promise<UpdateCategoryOutput> {
-    const uuid = new UUID(input.id);
-    const category = await this.categoryRepo.findById(uuid);
+    const categoryId = new CategoryId(input.id);
+    const category = await this.categoryRepo.findById(categoryId);
 
     if (!category) {
       throw new NotFoundError(input.id, Category);

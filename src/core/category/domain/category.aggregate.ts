@@ -29,7 +29,7 @@ export class Category extends AggregateRoot {
 
   constructor(props: CategoryConstructorProps) {
     super();
-    this.category_id = props.category_id ?? new UUID();
+    this.category_id = props.category_id ?? new CategoryId();
     this.name = props.name;
     this.description = props.description ?? null;
     this.is_active = props.is_active ?? true;
