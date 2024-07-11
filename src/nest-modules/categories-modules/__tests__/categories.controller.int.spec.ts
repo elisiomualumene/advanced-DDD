@@ -19,7 +19,7 @@ import {
 } from '../categories.presenter';
 import { CategoryOutputMapper } from '../../../core/category/application/use-cases/common/category-output';
 import { UUID } from '../../../core/shared/domain/value-objects/uuid.vo';
-import { Category } from '../../../core/category/domain/category.entity';
+import { Category } from '../../../core/category/domain/category.aggregate';
 import { ListCategoriesUseCase } from '@core/category/application/use-cases/list-category/list-categories.use-case';
 import { DatabaseModule } from 'src/nest-modules/database-modules/database.module';
 import { ConfigModule } from 'src/nest-modules/config-modules/config.module';

@@ -1,5 +1,5 @@
 import { NotFoundError } from "../../../../../shared/domain/errors/not-found.error";
-import { Category } from "../../../../domain/category.entity";
+import { Category } from "../../../../domain/category.aggregate";
 import { CategorySequelizeRepository } from "../category-sequelize.repository";
 import { CategoryModel } from "../category.model";
 import { UUID } from "../../../../../shared/domain/value-objects/uuid.vo";
