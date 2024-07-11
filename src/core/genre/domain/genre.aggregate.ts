@@ -1,9 +1,8 @@
-import { CategoryId } from '@core/category/domain/category.aggregate';
-import { AggregateRoot } from '@core/shared/domain/aggregate-root';
-import { ValueObject } from '@core/shared/domain/value-object';
-import { UUID } from '@core/shared/domain/value-objects/uuid.vo';
-import GenreValidatorFactory from './genre.validator';
+import { CategoryId } from '../../category/domain/category.aggregate';
+import { AggregateRoot } from '../../shared/domain/aggregate-root';
+import { UUID } from '../../shared/domain/value-objects/uuid.vo';
 import { GenreFakeBuilder } from './genre-fake.builder';
+import GenreValidatorFactory from './genre.validator';
 
 export type GenreConstructorProps = {
   genre_id?: GenreId;
@@ -48,11 +47,6 @@ export class Genre extends AggregateRoot {
     return genre;
   }
 
-  validate(fields?: string[]) {
-    const validator = GenreValidatorFactory.create();
-    return validator.validate(this.notification, this, fields);
-  }
-
   changeName(name: string) {
     this.name = name;
     this.validate(['name']);
@@ -62,12 +56,12 @@ export class Genre extends AggregateRoot {
     this.categories_id.set(category_id.id, category_id);
   }
 
-  removeCategory(category_id: CategoryId) {
+  removeCategoryId(category_id: CategoryId) {
     this.categories_id.delete(category_id.id);
   }
 
   syncCategoriesId(categories_id: CategoryId[]) {
-    if (categories_id.length) {
+    if (!categories_id.length) {
       throw new Error('Categories id is empty');
     }
 
@@ -84,16 +78,22 @@ export class Genre extends AggregateRoot {
     this.is_active = false;
   }
 
-  static fake(){
+  get entity_id() {
+    return this.genre_id;
+  }
+
+  validate(fields?: string[]) {
+    const validator = GenreValidatorFactory.create();
+    return validator.validate(this.notification, this, fields);
+  }
+
+  static fake() {
     return GenreFakeBuilder;
   }
 
-  get entity_id(): ValueObject {
-    return this.genre_id;
-  }
   toJSON() {
     return {
-      genre_id: this.genre_id,
+      genre_id: this.genre_id.id,
       name: this.name,
       categories_id: Array.from(this.categories_id.values()).map(
         (category_id) => category_id.id,
@@ -103,5 +103,3 @@ export class Genre extends AggregateRoot {
     };
   }
 }
-
-//  Set, Map. WeakSer WeakMap
